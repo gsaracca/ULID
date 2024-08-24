@@ -8,3 +8,13 @@ This module implements the version 7 UUIDs, proposed by Peabody and Davis in htt
 Version 7 has the nice characteristic that the start of a UUID encodes the time with a chronological sort order and potentially ~50ns time resolution, while the end of the UUID includes sufficient random bits to ensure consecutive UUIDs will remain unique.
 
 The first 48-bits are the timeStamp in milliseconds on days since 1970-01-01.
+
+# Usage
+on MAP add : include( 'ULID.INC' ),once
+
+on code call :
+    s = NewUUIDv7()
+
+    this generate an UUID version 7 like: 
+  "019186-565B-357F-09B3-F55146EAE82B97"
+
