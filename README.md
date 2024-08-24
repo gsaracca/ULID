@@ -7,4 +7,4 @@ This module implements the version 7 UUIDs, proposed by Peabody and Davis in htt
 
 Version 7 has the nice characteristic that the start of a UUID encodes the time with a chronological sort order and potentially ~50ns time resolution, while the end of the UUID includes sufficient random bits to ensure consecutive UUIDs will remain unique.
 
-The fist 40-bits are the timeStamp in milliseconds on days since 1970-01-01.
+The first 48-bits are the timeStamp in milliseconds on days since 1970-01-01.
