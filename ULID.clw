@@ -90,7 +90,6 @@ remainder       decimal(31)
     quotient = round( (dividend / divisor) - 0.5, 1 )
     remainder = dividend - (quotient * divisor)
     _dec = quotient
-    !add_txt( 'Dividendo: ' & dividendo & ' / ' & divisor & ' = ' & cociente & ' -> (cociente * divisor) = ' & (cociente * divisor) &  ' MOD = ' & resto )
     return remainder
     
 DecToHexa       procedure( *decimal _dec )!,string
