@@ -2,10 +2,19 @@
 !
 ! Universally Unique Lexicographically Sortable Identifier
 !
+! Usage:
+! Inside Global Map:
+!
+!       include( 'ULID.inc' ),once
+!
+! Gustavo Saracca, 2024.
+!
 ! -------------------------------------------------------------------------
 
     module( 'ULID.CLW' )
-        NewUUIDv7(),string
+        SetGMT( long _gmt )       
+        NewUUIDv7Array( *byte[] _ulid )
+        NewUUIDv7( long flag=0 ),string
     end !* module *
     
 COMPILE('Link', _ABCLinkMode_)
