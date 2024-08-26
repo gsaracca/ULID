@@ -22,19 +22,22 @@ xLine               string(1000)
     
 MAIN        procedure()
 rta         cstring(37)
-max_gen     long(1000000)
-i           long
 startTime   long
 endTime     long
+max_gen     long(1000000)
+i           long
     code 
-    startTime = clock()
+    SetGMT( +3 )                ! GMT-3 is Buenos Aires.
+    
+    startTime = clock()    
     init_log( 'NewUUIDv7.txt' )	
 	loop i = 1 to max_gen
-		rta = NewUUIDv7()
+		rta = NewUUIDv7( 1 )
 		add_log( 'NewUUIDv7 --> ' & i & ' --> ' & rta )
 	end !* loop *		
 	endTime = clock()
-	add_log( 'Elapsed time --> ' & format( endTime - startTime + 1, @T06 ) )
+	
+	add_log( 'Elapsed time (sec) --> ' & (endTime - startTime + 1) / 100 )
     done_log()
     
 
