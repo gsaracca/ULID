@@ -74,7 +74,10 @@ j               long
         iClock = (((SysTime.wHour+GMT) * 3600) + (SysTime.wMinute * 60) + SysTime.wSecond) + SysTime.wMilliseconds
         timestamp = ((days_since_1970 * 86400) + iClock) * 1000 + SysTime.wMilliseconds
         
-        i64FromDecimal( i64, timestamp )            
+        i64FromDecimal( i64, timestamp )         
+!	loop j = 1 to 6
+!	     _ulid[ j ] = uuid8[ 7 - j ]
+!	end !* loop *
         _ulid[ 1 ] = uuid8[ 6 ]
         _ulid[ 2 ] = uuid8[ 5 ]
         _ulid[ 3 ] = uuid8[ 4 ]
