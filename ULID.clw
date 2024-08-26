@@ -50,8 +50,11 @@ j               long
     	sUUID = sUUID & ByteToHex( uuid[j], flag )
     end !* loop * 
     
-	return sUUID
+    return sUUID
 
+! ---------------------------------------------------------------------------------------------------
+! Binary Version
+! ---------------------------------------------------------------------------------------------------
 NewUUIDv7Array  procedure( *byte[] _ulid )
 days_since_1970 long
 iToday          decimal(31)
