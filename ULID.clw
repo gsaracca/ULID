@@ -24,6 +24,7 @@ wSecond             USHORT
 wMilliseconds       USHORT
                 END !* group *
 
+UnixStartTime   equate( 61730 ) ! equal to "date( 01, 01, 1970 )"
 UUID_SIZE       equate(16)
 GMT             long( 0 )
 
@@ -68,7 +69,7 @@ j               long
     if maximum( _ulid, 1 ) >= UUID_SIZE
         GetSystemTime( SysTime )
         iToday = date( SysTime.wMonth, SysTime.wDay, SysTime.wYear )
-        days_since_1970 = iToday - date( 01, 01, 1970 )
+        days_since_1970 = iToday - UnixStartTime
         
         iClock = (((SysTime.wHour+GMT) * 3600) + (SysTime.wMinute * 60) + SysTime.wSecond) + SysTime.wMilliseconds
         timestamp = ((days_since_1970 * 86400) + iClock) * 1000 + SysTime.wMilliseconds
