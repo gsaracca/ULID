@@ -38,18 +38,19 @@ uuid            byte,dim(UUID_SIZE)
 j               long
     code
     NewUUIDv7Array( uuid )	
+	sUUID = ''
 	loop j = 1 to UUID_SIZE
-	    if j = 4
-	        sUUID = sUUID & '-'    
-	    elsif j = 6
-	        sUUID = sUUID & '-'
-	    elsif j = 8
-	        sUUID = sUUID & '-'
-	    elsif j = 10
-	        sUUID = sUUID & '-'
+	    if j = 5
+	       	sUUID = sUUID & '-'    
+	    elsif j = 7
+	       	sUUID = sUUID & '-'
+	    elsif j = 9
+	       	sUUID = sUUID & '-'
+	    elsif j = 11
+	       	sUUID = sUUID & '-'
         end !* case *   
     	sUUID = sUUID & ByteToHex( uuid[j], flag )
-    end !* loop * 
+	end !* loop *
     
     return sUUID
 
