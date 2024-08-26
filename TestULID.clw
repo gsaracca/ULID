@@ -2,7 +2,8 @@
 
     map        
         include( 'ULID.INC' ),once   
-
+    end !* map *
+    map
 	main()
         init_log( string _fname )
         add_log( string _msg )
