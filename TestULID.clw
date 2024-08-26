@@ -2,10 +2,8 @@
 
     map        
         include( 'ULID.INC' ),once   
-        module('')
-            sleep(LONG),pascal
-        end
-        main()
+
+	main()
         init_log( string _fname )
         add_log( string _msg )
         done_log()        
