@@ -1,21 +1,18 @@
     member
     
 _ABCLinkMode_   equate(1)    
-    
+
+    map
+        include( 'ULID.inc' ),once
+    end !* end *            
     map
         module('Windows.DLL')
-            GetSystemTime(*SYSTEMTIME),PASCAL,RAW
+            GetSystemTime(*SYSTEMTIME),pascal,raw
         end         
-        include( 'ULID.inc' ),once
         include( 'CWUTIL.INC' ),once
         include( 'i64.inc' ),once        
     end !* end *
     
-    map
-        mod( *decimal _dec, long base ),long
-        DecToHexa( *decimal _dec ),string
-    end !* map *        
-
 SYSTEMTIME      GROUP,TYPE              !System time struct
 wYear               USHORT
 wMonth              USHORT
@@ -25,45 +22,22 @@ wHour               USHORT
 wMinute             USHORT
 wSecond             USHORT
 wMilliseconds       USHORT
-                END 
+                END !* group *
 
-NewUUIDv7       procedure()
-GMT             long(+3)            ! GMT-3 is Buenos Aires.
+UUID_SIZE       equate(16)
+GMT             long( 0 )
+
+SetGMT          procedure( long _gmt ) 
+    code
+    GMT = _gmt
+
+NewUUIDv7       procedure( long flag=0 )!,string
 sUUID           cstring(37)
-uuid            byte,dim(16)
-days_since_1970 long
-iToday          decimal(31)
-iClock          decimal(31)
-timeStamp       decimal(31)
-SysTime         like(SystemTime)
-i64             like(Int64)
-uuid8           byte,dim(8),over(i64)
+uuid            byte,dim(UUID_SIZE)
 j               long
     code
-    GetSystemTime( SysTime )
-    iToday = date( SysTime.wMonth, SysTime.wDay, SysTime.wYear )
-    days_since_1970 = iToday - date( 01, 01, 1970 )
-    
-    iClock = (((SysTime.wHour+GMT) * 3600) + (SysTime.wMinute * 60) + SysTime.wSecond) + SysTime.wMilliseconds
-    timestamp = ((days_since_1970 * 86400) + iClock) * 1000 + SysTime.wMilliseconds
-    
-    i64FromDecimal( i64, timestamp )            
-    uuid[ 1 ] = uuid8[ 6 ]
-    uuid[ 2 ] = uuid8[ 5 ]
-    uuid[ 3 ] = uuid8[ 4 ]
-    uuid[ 4 ] = uuid8[ 3 ]
-    uuid[ 5 ] = uuid8[ 2 ]
-    uuid[ 6 ] = uuid8[ 1 ]
-   
-    loop j = 7 to 16
-        uuid[j] = random( 0, 255 )
-    end !* loop *        
-
-	! Set version (7) and variant bits (2 MSB as 01)
-	uuid[7] = bor( band(uuid[7], 00FH), bshift(7, 4) )
-	uuid[9] = bor( band(uuid[9], 03FH), 080H )
-	
-	loop j = 1 to 16
+    NewUUIDv7Array( uuid )	
+	loop j = 1 to UUID_SIZE
 	    if j = 4
 	        sUUID = sUUID & '-'    
 	    elsif j = 6
@@ -73,41 +47,44 @@ j               long
 	    elsif j = 10
 	        sUUID = sUUID & '-'
         end !* case *   
-    	sUUID = sUUID & ByteToHex( uuid[j] )
+    	sUUID = sUUID & ByteToHex( uuid[j], flag )
     end !* loop * 
     
 	return sUUID
 
+NewUUIDv7Array  procedure( *byte[] _ulid )
+days_since_1970 long
+iToday          decimal(31)
+iClock          decimal(31)
+timeStamp       decimal(31)
+SysTime         like(SystemTime)
+i64             like(Int64)
+uuid8           byte,dim(8),over(i64)
+j               long
+    code
+    if maximum( _ulid, 1 ) >= UUID_SIZE
+        GetSystemTime( SysTime )
+        iToday = date( SysTime.wMonth, SysTime.wDay, SysTime.wYear )
+        days_since_1970 = iToday - date( 01, 01, 1970 )
+        
+        iClock = (((SysTime.wHour+GMT) * 3600) + (SysTime.wMinute * 60) + SysTime.wSecond) + SysTime.wMilliseconds
+        timestamp = ((days_since_1970 * 86400) + iClock) * 1000 + SysTime.wMilliseconds
+        
+        i64FromDecimal( i64, timestamp )            
+        _ulid[ 1 ] = uuid8[ 6 ]
+        _ulid[ 2 ] = uuid8[ 5 ]
+        _ulid[ 3 ] = uuid8[ 4 ]
+        _ulid[ 4 ] = uuid8[ 3 ]
+        _ulid[ 5 ] = uuid8[ 2 ]
+        _ulid[ 6 ] = uuid8[ 1 ]
+       
+        loop j = 7 to UUID_SIZE
+            _ulid[j] = random( 0, 255 )
+        end !* loop *        
 
-mod             procedure( *decimal _dec, long _base )!,long
-dividend        decimal(31)
-divisor         decimal(31)
-quotient        decimal(31)
-remainder       decimal(31)
-    code
-    dividend = _dec
-    divisor = _base 
-    quotient = round( (dividend / divisor) - 0.5, 1 )
-    remainder = dividend - (quotient * divisor)
-    _dec = quotient
-    return remainder
-    
-DecToHexa       procedure( *decimal _dec )!,string
-v               decimal(31)
-s               cstring(64)
-b               long(16)
-ConvStr         cstring('0123456789ABCDEF')
-idx             long
-    code
-    s = ''
-    v = _dec
-    loop
-        idx = mod( v, b ) + 1
-        s = ConvStr[ idx ] & s
-        if v < 1 
-            break
-        end !* if *
-    end !* loop *
-    return s
+        ! Set version (7) and variant bits (2 MSB as 01)
+        _ulid[7] = bor( band(_ulid[7], 00FH), bshift(7, 4) )
+        _ulid[9] = bor( band(_ulid[9], 03FH), 080H )
+    end !* if *	    
     
 !* end *
