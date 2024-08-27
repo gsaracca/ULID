@@ -16,6 +16,6 @@ on code call :
     s = NewUUIDv7()
 
     this generate an UUID version 7 like: 
-  "019186-565B-357F-09B3-F55146EAE82B97"
+  "0191944D-8EC4-7A70-86F5-8AA506DEE33A"
 
 This version on standard i5 Gen 12 generate 1.000.000 of ULID in less than 7 secs.
