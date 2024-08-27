@@ -1,7 +1,5 @@
     member
     
-_ABCLinkMode_   equate(1)    
-
     map
         include( 'ULID.inc' ),once
     end !* end *            
@@ -9,7 +7,6 @@ _ABCLinkMode_   equate(1)
         module('Windows.DLL')
             GetSystemTime(*SYSTEMTIME),pascal,raw
         end         
-        include( 'CWUTIL.INC' ),once
         include( 'i64.inc' ),once        
     end !* end *
     
@@ -27,7 +24,7 @@ wMilliseconds       USHORT
 UnixStartTime   	equate( 61730 ) ! equal to "date( 01, 01, 1970 )"
 UUID_SIZE       	equate(16)
 GMT             	long( 0 )
-lookup_table_upr    cstring('000102030405060708090A0B0C0D0E0F' & |
+lookup_table_upr	cstring('000102030405060708090A0B0C0D0E0F' & |
                             '101112131415161718191A1B1C1D1E1F' & |
                             '202122232425262728292A2B2C2D2E2F' & |
                             '303132333435363738393A3B3C3D3E3F' & |
@@ -44,7 +41,7 @@ lookup_table_upr    cstring('000102030405060708090A0B0C0D0E0F' & |
                             'E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEF' & |
                             'F0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF' )
                             
-lookup_table_lwr    cstring('000102030405060708090a0b0c0d0e0f' & |
+lookup_table_lwr    	cstring('000102030405060708090a0b0c0d0e0f' & |
                             '101112131415161718191a1b1c1d1e1f' & |
                             '202122232425262728292a2b2c2d2e2f' & |
                             '303132333435363738393a3b3c3d3e3f' & |
