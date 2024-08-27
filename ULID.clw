@@ -5,12 +5,12 @@
     end !* end *            
     map
         module('Windows.DLL')
-            GetSystemTime(*SYSTEMTIME),pascal,raw
+            GetSystemTime(*SystemTime),pascal,raw
         end         
         include( 'i64.inc' ),once        
     end !* end *
     
-SYSTEMTIME      GROUP,TYPE              !System time struct
+SystemTime      GROUP,TYPE              !System time struct
 wYear               USHORT
 wMonth              USHORT
 wDayOfWeek          USHORT
