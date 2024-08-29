@@ -62,7 +62,7 @@ SetGMT          procedure( long _gmt )
     code
     GMT = _gmt
 
-NewUUIDv7       procedure( long flag=0 )!,string
+NewUUIDv7       procedure( BOOL flag=0 )!,string
 uuid            byte,dim(UUID_SIZE)
 sUUID           cstring(37)
 xUUID           cstring(37)
