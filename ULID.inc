@@ -14,7 +14,7 @@
     module( 'ULID.CLW' )
         SetGMT( long _gmt )       
         NewUUIDv7Array( *byte[] _ulid )
-        NewUUIDv7( long flag=0 ),string
+        NewUUIDv7( BOOL flag=0 ),string
     end !* module *
     
 COMPILE('Link', _ABCLinkMode_)
