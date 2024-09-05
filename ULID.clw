@@ -123,8 +123,8 @@ j               long
         end !* loop *        
 
         ! Set version (7) and variant bits (2 MSB as 01)
-        _ulid[7] = bor( band(_ulid[7], 00FH), bshift(7, 4) )
-        _ulid[9] = bor( band(_ulid[9], 03FH), 080H )
+        _ulid[7] = bor( band(_ulid[7], 00FH), 070H )        ! (uuid[6] & 0x0f) | (7 << 4)
+        _ulid[9] = bor( band(_ulid[9], 03FH), 080H )        ! (uuid[8] & 0x3f) | 0x80
     end !* if *	    
     
 !* end *
