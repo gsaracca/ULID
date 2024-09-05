@@ -62,6 +62,12 @@ SetGMT          procedure( long _gmt )
     code
     GMT = _gmt
 
+! ---------------------------------------------------------------------------------------------------
+! Conversion to Binary Array to String
+! ---------------------------------------------------------------------------------------------------
+! flag = 0 => hexa upper case 
+! flag = 1 => hexa lower case 
+! --------------------------------------------------------------------------------------------------- 
 NewUUIDv7       procedure( BOOL flag=0 )!,string
 uuid            byte,dim(UUID_SIZE)
 sUUID           cstring(37)
@@ -107,7 +113,7 @@ j               long
         iToday = date( SysTime.wMonth, SysTime.wDay, SysTime.wYear )
         days_since_1970 = iToday - UnixStartTime
         
-        iClock = (((SysTime.wHour+GMT) * 3600) + (SysTime.wMinute * 60) + SysTime.wSecond) + SysTime.wMilliseconds
+        iClock = (((SysTime.wHour+GMT) * 3600) + (SysTime.wMinute * 60) + SysTime.wSecond)
         timestamp = ((days_since_1970 * 86400) + iClock) * 1000 + SysTime.wMilliseconds
         
         i64FromDecimal( i64, timestamp )         
