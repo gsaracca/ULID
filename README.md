@@ -17,5 +17,3 @@ on code call :
 
     this generate an UUID version 7 like: 
   "0191944D-8EC4-7A70-86F5-8AA506DEE33A"
-
-This version on standard i5 Gen 12 generate 1.000.000 of ULID in less than 4.5 secs.
